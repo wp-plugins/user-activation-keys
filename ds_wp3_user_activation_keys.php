@@ -2,9 +2,9 @@
 /*
 Plugin Name: User Activation Keys
 Plugin URI: http://dsader.snowotherway.org/wordpress-plugins/user-activation-keys/
-Description: WP Network Multisite user activation key removal or approval "mu=plugin". See SuperAdmin->"User Activation Keys" to delete activation keys - to allow immediate (re)signup of users who otherwise get the "try again in two days" message. Also, users waiting to be activated (or can't because the email with the generated activation link is "gone") can be approved manually.
+Description: WP Network Multisite user activation key removal or approval "mu=plugin". See SuperAdmin-->"User Activation Keys" to delete activation keys - to allow immediate (re)signup of users who otherwise get the "try again in two days" message. Also, users waiting to be activated (or can't because the email with the generated activation link is "gone") can be approved manually.
 Author: D. Sader
-Version: 3.0.1
+Version: 3.0.2
 Author URI: http://dsader.snowotherway.org
 
  This program is free software; you can redistribute it and/or modify
@@ -23,7 +23,7 @@ add_action('admin_menu', 'ds_uak_admin_page');
 
 function ds_uak_admin_page() {
       if (is_super_admin()) {
-        add_submenu_page('ms-admin.php', 'User Activation Keys', 'User Activation Keys', 10, 'act_keys', 'ds_delete_stale');
+        add_submenu_page('ms-admin.php', 'User Activation Keys', 'User Activation Keys', 'edit_users', 'act_keys', 'ds_delete_stale');
       }
 }
 
@@ -66,7 +66,7 @@ function ds_delete_stale() {
 		echo '</span>';
 		echo '</div><br class="clear" />';
 		echo '<table class="widefat"><tbody>';
-		echo '<thead><th>#</th><th>Registered</th><th>User</th><th>Email</th><th>Action</th></thead>';
+		echo '<thead><th>#</th><th>Registered</th><th>User</th><th>Email</th><th>Approve</th></thead>';
 		foreach ( $results as $rows ) {
 			echo '<tr><td>' . ++$ct . '</td><td>'.$rows['registered'].'</td><td>'.$rows['user_login'].'</td><td>'.$rows['user_email'].'</td>';
 			if($rows['active'] != '1') {

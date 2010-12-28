@@ -39,9 +39,15 @@ This section describes how to install the plugin and get it working.
 1. SuperAdmin->"User Activation Keys" page
 
 == Changelog ==
+= 3.0.2 = 
+* update roles/caps
+
 = 3.0.1 = 
 * initial release
 
 == Upgrade Notice ==
+= 3.0.2 = 
+* update roles/caps
+
 = 3.0.1 =
 * initial release
