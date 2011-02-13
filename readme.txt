@@ -39,6 +39,9 @@ This section describes how to install the plugin and get it working.
 1. SuperAdmin->"User Activation Keys" page
 
 == Changelog ==
+= 3.0.3 = 
+* site_url/admin_url typo fix
+
 = 3.0.2 = 
 * update roles/caps
 

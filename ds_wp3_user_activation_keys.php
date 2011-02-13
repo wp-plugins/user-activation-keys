@@ -4,7 +4,7 @@ Plugin Name: User Activation Keys
 Plugin URI: http://dsader.snowotherway.org/wordpress-plugins/user-activation-keys/
 Description: WP Network Multisite user activation key removal or approval "mu=plugin". See SuperAdmin-->"User Activation Keys" to delete activation keys - to allow immediate (re)signup of users who otherwise get the "try again in two days" message. Also, users waiting to be activated (or can't because the email with the generated activation link is "gone") can be approved manually.
 Author: D. Sader
-Version: 3.0.2
+Version: 3.0.3
 Author URI: http://dsader.snowotherway.org
 
  This program is free software; you can redistribute it and/or modify
@@ -70,7 +70,7 @@ function ds_delete_stale() {
 		foreach ( $results as $rows ) {
 			echo '<tr><td>' . ++$ct . '</td><td>'.$rows['registered'].'</td><td>'.$rows['user_login'].'</td><td>'.$rows['user_email'].'</td>';
 			if($rows['active'] != '1') {
-			echo '<td><a href="' . admin_url() . 'wp-activate.php?key='.$rows['activation_key'] . '" target="_blank">approve</a> | <a href="' . wp_nonce_url( $location . '&delete='.$rows['activation_key'], 'activation_key' ) . '">delete unused key</a></td>';
+			echo '<td><a href="' . site_url('wp-activate.php?key='.$rows['activation_key']) . '" target="_blank">approve</a> | <a href="' . wp_nonce_url( $location . '&delete='.$rows['activation_key'], 'activation_key' ) . '">delete unused key</a></td>';
 			} else {
 			echo '<td>User Activated '.$rows['activated'].' | <a href="' .  wp_nonce_url( $location . '&delete='.$rows['activation_key'] , 'activation_key' ).'">delete uncecessary key</a></td>';
 			}
