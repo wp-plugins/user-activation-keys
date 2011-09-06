@@ -4,7 +4,7 @@ Plugin Name: User Activation Keys
 Plugin URI: http://dsader.snowotherway.org/wordpress-plugins/user-activation-keys/
 Description: WP Network Multisite user activation key removal or approval "mu=plugin". See SuperAdmin-->"User Activation Keys" to delete activation keys - to allow immediate (re)signup of users who otherwise get the "try again in two days" message. Also, users waiting to be activated (or can't because the email with the generated activation link is "gone") can be approved manually.
 Author: D. Sader
-Version: 3.0.3
+Version: 3.0.4
 Author URI: http://dsader.snowotherway.org
 
  This program is free software; you can redistribute it and/or modify
@@ -19,37 +19,43 @@ Author URI: http://dsader.snowotherway.org
 
 */
 
-add_action('admin_menu', 'ds_uak_admin_page');
+add_action('network_admin_menu', 'ds_uak_admin_page');
 
 function ds_uak_admin_page() {
-      if (is_super_admin()) {
-        add_submenu_page('ms-admin.php', 'User Activation Keys', 'User Activation Keys', 'edit_users', 'act_keys', 'ds_delete_stale');
-      }
+
+        add_submenu_page('users.php', 'User Activation Keys', 'User Activation Keys', 'edit_users', 'act_keys', 'ds_delete_stale');
 }
 
 function ds_delete_stale() {
 	global $wpdb;
  	$query = "SELECT * FROM {$wpdb->signups} ORDER BY registered DESC";
 	$results = $wpdb->get_results($query, ARRAY_A);
-	$delete = $_GET['delete'];
+	if(isset($_GET['delete'])) {
+		$delete = $_GET['delete'];
+	}
+	if(isset($_GET['del_stale_active'])) {
 	$del_stale_active = $_GET['del_stale_active'];
+	}
+	if(isset($_GET['del_stale_inactive'])) {
 	$del_stale_inactive = $_GET['del_stale_inactive'];
-	$location = admin_url('ms-admin.php?page=act_keys');
+	}
+	
+	$location = network_admin_url('users.php?page=act_keys');
 
 
-	if ( $delete ) {
+	if ( !empty($delete) ) {
 		check_admin_referer('activation_key');
 		$wpdb->query("DELETE FROM $wpdb->signups WHERE activation_key = '$delete'");
            	echo "<meta http-equiv='refresh' content='0;url=$location' />";
             exit;
 	}
-	if ( $del_stale_active ) {
+	if ( !empty($del_stale_active) ) {
 		check_admin_referer('activation_key');
 	        $wpdb->query( "DELETE FROM $wpdb->signups WHERE active = 1 AND DATE(registered) < DATE_SUB(curdate(), INTERVAL 30 DAY)" );
            	echo "<meta http-equiv='refresh' content='0;url=$location' />";
             exit;
 	}
-	if ( $del_stale_inactive ) {
+	if ( !empty($del_stale_inactive) ) {
 		check_admin_referer('activation_key');
 	        $wpdb->query( "DELETE FROM $wpdb->signups WHERE active = 0 AND DATE(registered) < DATE_SUB(curdate(), INTERVAL 30 DAY)" );
            	echo "<meta http-equiv='refresh' content='0;url=$location' />";
@@ -68,6 +74,7 @@ function ds_delete_stale() {
 		echo '<table class="widefat"><tbody>';
 		echo '<thead><th>#</th><th>Registered</th><th>User</th><th>Email</th><th>Approve</th></thead>';
 		foreach ( $results as $rows ) {
+			global $ct;
 			echo '<tr><td>' . ++$ct . '</td><td>'.$rows['registered'].'</td><td>'.$rows['user_login'].'</td><td>'.$rows['user_email'].'</td>';
 			if($rows['active'] != '1') {
 			echo '<td><a href="' . site_url('wp-activate.php?key='.$rows['activation_key']) . '" target="_blank">approve</a> | <a href="' . wp_nonce_url( $location . '&delete='.$rows['activation_key'], 'activation_key' ) . '">delete unused key</a></td>';

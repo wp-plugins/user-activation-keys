@@ -2,8 +2,8 @@
 Contributors: dsader
 Donate link: http://dsader.snowotherway.org
 Tags: signup, username, activation, network, network user activation, activation keys, multisite, network, users
-Requires at least: 3.0
-Tested up to: 3.0
+Requires at least: 3.2.1
+Tested up to: 3.2.1
 Stable tag: Trunk
 
 WP Network Multisite "mu=plugin" for user activation key removal or approval. 
@@ -18,14 +18,14 @@ Ever wanted to signup a bunch of users with phony emails so users without email 
 
 I have, so I made a plugin to help me.
 
-WP Network Multisite "mu=plugin" for user activation key removal or approval. See SuperAdmin-->"User Activation Keys" to delete activation keys - to allow immediate (re)signup of users who otherwise get the "try again in two days" message. Also, users waiting to be activated (or can't because the email with the generated activation link is "gone") can be approved manually.
+WP Network Multisite "mu=plugin" for user activation key removal or approval. See Network Admin-->"User Activation Keys" to delete activation keys - to allow immediate (re)signup of users who otherwise get the "try again in two days" message. Also, users waiting to be activated (or can't because the email with the generated activation link is "gone") can be approved manually.
 
 == Installation ==
 
 This section describes how to install the plugin and get it working.
 
 1. Upload `ds_wp3_user_activation_keys.php` to the `/wp-content/mu-plugins/` directory
-2. Delete or approve keys at SuperAdmin->"User Activation Keys" page
+2. Delete or approve keys at Network Admin->"User Activation Keys" page
 
 == Frequently Asked Questions ==
 
@@ -36,9 +36,12 @@ This section describes how to install the plugin and get it working.
 
 == Screenshots ==
 
-1. SuperAdmin->"User Activation Keys" page
+1. Network Admin->"User Activation Keys" page
 
 == Changelog ==
+= 3.0.4 = 
+* Tested up to: WP 3.2.1
+
 = 3.0.3 = 
 * site_url/admin_url typo fix
 
