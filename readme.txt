@@ -5,6 +5,8 @@ Tags: signup, username, activation, network, network user activation, activation
 Requires at least: 3.5
 Tested up to: 3.5
 Stable tag: Trunk
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 WP Network Multisite "mu-plugin" for user activation key removal or approval. 
 
