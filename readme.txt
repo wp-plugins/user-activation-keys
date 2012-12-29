@@ -3,7 +3,7 @@ Contributors: dsader
 Donate link: http://dsader.snowotherway.org
 Tags: signup, username, activation, network, network user activation, activation keys, multisite, network, users
 Requires at least: 3.2.1
-Tested up to: 3.2.1
+Tested up to: 3.5
 Stable tag: Trunk
 
 WP Network Multisite "mu=plugin" for user activation key removal or approval. 
